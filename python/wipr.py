@@ -33,9 +33,9 @@ async def main():
         client.load_cookies(cookies_path)
     else:
         await client.login(
-        auth_info_1=os.environ["AUTH_INFO1"],
-        auth_info_2=os.environ["AUTH_INFO2"],
-        password=os.environ["AUTH_INFO3"])
+        auth_info_1=os.environ["AUTH_INFO_1"],
+        auth_info_2=os.environ["AUTH_INFO_2"],
+        password=os.environ["AUTH_INFO_3"])
         client.save_cookies(cookies_path)
 
     while True:

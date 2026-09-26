@@ -27,7 +27,7 @@ async def main():
     USER_ID = '517004655'
     tweet_channel = bot.get_channel(1391016775407374357)
     tweet_channel2 = bot.get_channel(1485792521740091494)
-    cookies_path = "cookies.json"
+    cookies_path = "/var/www/cookies.json"
     
     if os.path.exists(cookies_path):
         client.load_cookies(cookies_path)

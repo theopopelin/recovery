@@ -80,7 +80,7 @@ async def ping(interaction: discord.Interaction):
 @tree.command(name="combiensinje", description="Remonte le nombre de sinjes récupérés au total")
 async def combiensinje(interaction: discord.Interaction):
     user = interaction.user
-    r = requests.get(f"http://"+os.environ["API_URL"]"/recovery/sinje/combien/"+str(user.id))
+    r = requests.get(f"http://"+os.environ["API_URL"]"/recovery/sinje/combien/")
     geo = r.json()
     nbsinje = geo[0]
     await interaction.response.send_message(str(nbsinje)+" sinjes")

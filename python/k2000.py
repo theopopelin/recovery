@@ -88,7 +88,7 @@ async def combiensinje(interaction: discord.Interaction):
 @tree.command(name="l9generator", description="L9GENERATOR 联盟戦亡選機稿 NEW RATEARL SCRIPT 100% UNDETECTED 400 TUMORS 24 SEC 癌症 [ROLEX LASER BOOST]")
 async def l9generator(interaction: discord.Interaction):
     #spacegliding in cthululow
-    r = requests.get(f"http://"+os.environ["API_URL"]"/recovery/l9/random/")
+    r = requests.get(f"http://"+os.environ["API_URL"]+"/recovery/l9/random/")
     l9json = r.json()
     sentence = l9json['prefix']+l9json['verb']+" in "+l9json['low']+"low"
     await interaction.response.send_message(sentence)

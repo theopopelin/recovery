@@ -13,6 +13,7 @@ Adaptation de l'API conspiracy sous Docker et montée de version PHP/Symfony
 - API consommée par un bot Discord.py
 - Gestion de systèmes de cooldowns communs ou individuels sur les commandes du Bot
 - Enregistrement et comptage des activations par user
+- Sortie de données en json en piochant dans plusieurs tables
 
 ## Installation
 

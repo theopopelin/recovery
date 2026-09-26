@@ -23,5 +23,5 @@ les fichiers python sont dans le repo mais sont indépendants du montage Docker
 
 ajouter les creds en Env, puis :
 
-docker compose up -d --build
-docker compose exec -T php php bin/console doctrine:migrations:migrate --no-interaction
+- docker compose up -d --build
+- docker compose exec -T php php bin/console doctrine:migrations:migrate --no-interaction

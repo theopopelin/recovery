@@ -38,6 +38,7 @@ async def main():
         password=os.environ["AUTH_INFO_3"])
         client.save_cookies(cookies_path)
 
+#todo automatiser avec un cron propre, pour le moment ca fait le job
     while True:
         tweets = await client.get_user_tweets(USER_ID, 'Tweets')
         latest_id = tweets[0].id

@@ -49,6 +49,8 @@ class SinjeController extends AbstractController
                 $olduser = 1;
             } else {
             $olduser = $oldsinje->getUserid();
+            }
+
             $possession = time() - $cooldown->getCooldown();
 
             //set new cooldown

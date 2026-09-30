@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SinjeController extends AbstractController
 {
+    // this allows cheating and it should be access restricted
     #[Route('/sinje/cooldown', name: 'app_sinje_cooldown', methods: ['GET'])]
     public function cooldownsinje(
         SinjeCooldownRepository $sinjeCooldownRepository
@@ -24,32 +25,49 @@ class SinjeController extends AbstractController
         ]);
     }
 
-    #[Route('/sinje/cop', name: 'app_sinje_cop', methods: ['GET'])]
+    #[Route('/sinje/cop/{id_user}', name: 'app_sinje_cop', methods: ['GET'])]
     public function copsinje(
+        int $id_user,
         EntityManagerInterface $entityManager,
+        SinjeRepository $sinjeRepository,
         SinjeCooldownRepository $sinjeCooldownRepository,
         Request $request
     ): JsonResponse {
-        $newcd = $request->query->get('cd');
-        $newuser = $request->query->get('newuser');
-        $olduser = $request->query->get('olduser');
-        $possession = $request->query->get('possession');
-
+        // check cooldown to see if it's up
         $cooldown = $sinjeCooldownRepository->findAll()[0];
-        $cooldown->setCooldown($newcd);
+        if ($cooldown->getCooldown() < time() ){
+           
+            $newcd = time() + rand(6 * 3600, 18 * 3600);
+            $newuser = $id_user;
+            $oldsinje = $sinjeRepository->findOneBy([], ['id' => 'DESC']);
 
-        $newsinje = new Sinje();
-        $newsinje->setUserId($newuser);
-        $newsinje->setLastUser($olduser);
-        $newsinje->setPossession($possession);
+            //previous owner and how long the cooldown has been available before activation
+            //not counting the static cooldown as detention time because it's random
+            $olduser = $oldsinje->getUserid();
+            $possession = time() - $cooldown->getCooldown();
 
-        $entityManager->persist($newsinje);
-        $entityManager->flush();
+            //set new cooldown
+            $cooldown->setCooldown($newcd);
+
+            //create new sinje
+            $newsinje = new Sinje();
+            $newsinje->setUserId($newuser);
+            $newsinje->setLastUser($olduser);
+            $newsinje->setPossession($possession);
+
+            $entityManager->persist($cooldown);
+            $entityManager->persist($newsinje);
+            $entityManager->flush();
 
         return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/SinjeController.php',
+            "sinje acquired"
         ]);
+        } else {
+                    return $this->json([
+            "not available"
+        ]);
+        }
+
     }
 
     #[Route('/sinje/combien/{id_user}', name: 'app_sinje_combien', methods: ['GET'])]
@@ -67,5 +85,6 @@ class SinjeController extends AbstractController
             $nombresinjes
         ]);
     }
+    
 }
 

@@ -43,6 +43,13 @@ class SinjeController extends AbstractController
 
             //previous owner and how long the cooldown has been available before activation
             //not counting the static cooldown as detention time because it's random
+
+            }
+
+            if ($oldsinje === null){
+                // if it's the very first time oldsinje will be empty
+                $olduser = 1;
+            } else {
             $olduser = $oldsinje->getUserid();
             $possession = time() - $cooldown->getCooldown();
 

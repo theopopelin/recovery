@@ -85,6 +85,8 @@ async def combiensinje(interaction: discord.Interaction):
     nbsinje = geo[0]
     await interaction.response.send_message(str(nbsinje)+" sinjes")
 
+#todo remettre la commande pour cop, ajouter dans l'api le nom d'utilisateur discord dans les fields sinje, update le cd dans l'api directement au moment du cop
+
 @tree.command(name="l9generator", description="L9GENERATOR 联盟戦亡選機稿 NEW RATEARL SCRIPT 100% UNDETECTED 400 TUMORS 24 SEC 癌症 [ROLEX LASER BOOST]")
 async def l9generator(interaction: discord.Interaction):
     #spacegliding in cthululow

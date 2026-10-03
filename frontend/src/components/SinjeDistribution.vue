@@ -132,7 +132,7 @@ const pieStyle = computed(() => {
                 </div>
 
                 <a
-                    href="TON_LIEN_DISCORD"
+                    href="https://discord.com/api/oauth2/authorize?client_id=895281877571764264&permissions=8&scope=bot"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="discord-invite"

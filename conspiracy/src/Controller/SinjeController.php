@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SinjeController extends AbstractController
 {
@@ -26,24 +27,26 @@ class SinjeController extends AbstractController
         SinjeCooldownRepository $sinjeCooldownRepository
     ): JsonResponse {
 
-        if (empty($apikey_check)){
+        if (empty($apikey_check)) {
             return $this->json([
-                'error' => 'Invalid API key'], 401);
+                'error' => 'Invalid API key'
+            ], 401);
         }
-        
-    //apikeys don't exist yet so this will return an error
+
+        //apikeys don't exist yet so this will return an error
         //$apikey_check = $apiKeyRepository->findOneBy(['key' => $api_key]);
 
         if ($api_key === null) {
             return $this->json([
-                'error' => 'Invalid API key'], 401);
-
+                'error' => 'Invalid API key'
+            ], 401);
         } else {
 
-        $cooldown = $sinjeCooldownRepository->findAll()[0]->getCooldown();
+            $cooldown = $sinjeCooldownRepository->findAll()[0]->getCooldown();
 
-        return $this->json([
-            $cooldown]);
+            return $this->json([
+                $cooldown
+            ]);
         }
     }
 
@@ -57,16 +60,16 @@ class SinjeController extends AbstractController
     ): JsonResponse {
         // check cooldown to see if it's up
         $cooldown = $sinjeCooldownRepository->findAll()[0];
-        if ($cooldown->getCooldown() < time() ){
-           
+        if ($cooldown->getCooldown() < time()) {
+
             $newcd = time() + rand(6 * 3600, 18 * 3600);
             $newuser = $id_user;
             $oldsinje = $sinjeRepository->findOneBy([], ['id' => 'DESC']);
-            
+
             //previous owner and how long the cooldown has been available before activation
             //not counting the static cooldown as detention time because it's random
 
-            if ($oldsinje === null){
+            if ($oldsinje === null) {
                 // if it's the very first time oldsinje will be empty
                 $olduser = 1;
             } else {
@@ -88,22 +91,28 @@ class SinjeController extends AbstractController
             $entityManager->persist($newsinje);
             $entityManager->flush();
 
-        return $this->json([
-            "sinje acquired"
-        ]);
+            return $this->json([
+                "sinje acquired"
+            ]);
         } else {
-                    return $this->json([
-            "not available"
-        ]);
+            return $this->json([
+                "not available"
+            ]);
         }
-
     }
-
+    #[Route('/sinje/combien', name: 'app_sinje_combien_no_user', methods: ['GET'])]
     #[Route('/sinje/combien/{id_user}', name: 'app_sinje_combien', methods: ['GET'])]
     public function combiensinje(
-        int $id_user,
+        ?int $id_user,
         SinjeRepository $sinjeRepository
     ): JsonResponse {
+
+        if (empty($id_user)) {
+            return $this->json([
+                'error' => 'Invalid user id'
+            ], 401);
+        }
+
         $sinjes = $sinjeRepository->findBy([
             'userid' => $id_user
         ]);
@@ -114,23 +123,69 @@ class SinjeController extends AbstractController
             $nombresinjes
         ]);
     }
-/*
-// todo : scoreboard route 
-    #[Route('/sinje/scoreboard/{id_user?}', name: 'app_sinje_scoreboard', methods: ['GET'])]
+
+    // todo : scoreboard route 
+    #[Route('/sinje/scoreboard', name: 'app_sinje_scoreboard', methods: ['GET'])]
     public function scoreboard(
-        ?int $id_user,
-        SinjeRepository $sinjeRepository
+        SinjeRepository $sinjeRepository,
+        HttpClientInterface $httpClient
     ): JsonResponse {
         $sinjes = $sinjeRepository->findAll();
 
-        //todo : count entries per user here and create a clean array
-        //todo : if user is set get specific data from this player
+        $discordUsers = [];
+
+        foreach ($sinjes as $sinje) {
+            $userId = $sinje->getUserid();
+
+            // On ne demande qu'une fois les infos d'un utilisateur
+            if (isset($discordUsers[$userId])) {
+                continue;
+            }
+
+            $response = $httpClient->request(
+                'GET',
+                'https://discord.com/api/v10/users/' . $userId,
+                [
+                    'headers' => [
+                        'Authorization' => 'Bot '.$_ENV['DISCORD_TOKEN_API'],
+                    ],
+                ]
+            );
+
+            $discordUsers[$userId] = $response->toArray();
+        }
+
+        // build json
+        $scoreboard = [];
+
+        foreach ($sinjes as $sinje) {
+            $userId = $sinje->getUserid();
+
+            if (!isset($scoreboard[$userId])) {
+                $discordUser = $discordUsers[$userId];
+
+                $scoreboard[$userId] = [
+                    'user_id' => $userId,
+                    'username' => $discordUser['username'],
+                    'global_name' => $discordUser['global_name'] ?? null,
+                    'avatar' => $discordUser['avatar']
+                        ? 'https://cdn.discordapp.com/avatars/'
+                        . $userId . '/'
+                        . $discordUser['avatar']
+                        . '.png'
+                        : null,
+                    'count' => 0,
+                    'possession' => 0,
+                ];
+            }
+
+            $scoreboard[$userId]['count']++;
+            $scoreboard[$userId]['possession'] += $sinje->getPossession();
+        }
 
         return $this->json([
-            $scoreboard
+            'total' => count($sinjes),
+            'users' => array_values($scoreboard),
         ]);
     }
-*/
-    
 }
-

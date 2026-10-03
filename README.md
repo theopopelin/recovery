@@ -21,6 +21,7 @@ les fichiers python sont dans le repo mais sont indépendants du montage Docker
 
 ## Installation API
 
+ajouter un token Bot discord en Env pour que l'api puisse faire des requêtes à l'api discord pour les user data
 ajouter les creds en Env, puis :
 
 - docker compose up -d --build

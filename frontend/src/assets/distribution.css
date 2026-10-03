@@ -1,0 +1,228 @@
+.distribution {
+    padding: 32px;
+    border-radius: 20px;
+    background: var(--card);
+    animation: fade-up 0.5s ease 0.1s both;
+}
+
+.distribution-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.distribution-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.distribution-header span {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.pie-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.pie {
+    position: relative;
+    flex-shrink: 0;
+    width: 220px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.pie::after {
+    content: "";
+
+    position: absolute;
+    inset: 27%;
+
+    border-radius: 50%;
+
+    background: #181b24;
+
+    box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.pie-center {
+    position: absolute;
+    inset: 27%;
+
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.pie-center strong {
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--text);
+}
+
+.pie-center span {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 0.75rem;
+}
+
+.pie-legend {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 230px;
+
+    gap: 12px;
+}
+
+.legend-item {
+    display: grid;
+
+    grid-template-columns:
+        10px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 0.85rem;
+}
+
+.legend-color {
+    width: 10px;
+    height: 10px;
+
+    border-radius: 3px;
+}
+
+.legend-name {
+    overflow: hidden;
+
+    color: var(--muted);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.legend-item strong {
+    color: var(--text);
+    font-size: 0.8rem;
+}
+
+
+/* =========================
+   GAME INFO
+   ========================= */
+
+.game-info {
+    margin-top: 32px;
+
+    text-align: center;
+}
+
+.game-info p {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.game-info span {
+    display: block;
+
+    max-width: 420px;
+
+    margin: 6px auto 0;
+
+    color: var(--muted);
+
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   DISCORD INVITE
+   ========================= */
+
+.discord-invite {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 20px;
+    padding: 12px 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    background: rgba(88, 101, 242, 0.08);
+
+    color: var(--text);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.discord-invite:hover {
+    background: rgba(88, 101, 242, 0.16);
+
+    border-color: rgba(88, 101, 242, 0.4);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+    .distribution {
+        padding: 24px 20px;
+    }
+
+    .pie-container {
+        flex-direction: column;
+        gap: 28px;
+    }
+
+    .pie {
+        width: 190px;
+    }
+
+    .pie-legend {
+        max-width: none;
+    }
+
+    .game-info {
+        margin-top: 28px;
+    }
+}

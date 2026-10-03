@@ -1,0 +1,371 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+
+/* =========================
+   GLOBAL VARIABLES
+   ========================= */
+
+:root {
+    --bg: #0b0d12;
+    --card: rgba(24, 27, 36, 0.82);
+    --card-hover: rgba(29, 33, 44, 0.95);
+
+    --border: rgba(255, 255, 255, 0.07);
+
+    --text: #f5f7ff;
+    --muted: #8f96a8;
+
+    --accent: #5865f2;
+    --accent-light: #7289ff;
+
+    --pie-color-1: #5865f2;
+    --pie-color-2: #57f287;
+    --pie-color-3: #fee75c;
+    --pie-color-4: #eb459e;
+    --pie-color-5: #ed4245;
+    --pie-color-6: #747f8d;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+    background: var(--bg);
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* =========================
+   GLOBAL
+   ========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-width: 320px;
+}
+
+#app {
+    min-height: 100vh;
+}
+
+.app {
+    position: relative;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   ANIMATED BACKGROUND
+   ========================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+
+    overflow: hidden;
+
+    background: #2240c7;
+}
+
+
+/* =========================
+   NOISE
+   ========================= */
+
+.noise {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.35;
+}
+
+.noise::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image: url("https://ice-creme.de/images/background-noise.png");
+
+    pointer-events: none;
+}
+
+.noise-moving {
+    opacity: 0.45;
+}
+
+.noise-moving::before {
+    will-change: background-position;
+
+    animation: noise 1s infinite alternate;
+}
+
+
+/* =========================
+   SCANLINES
+   ========================= */
+
+.scanlines {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: 0.25;
+
+    animation: scanlines-opacity 3s linear infinite;
+}
+
+.scanlines::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.5) 51%
+        );
+
+    background-size: 100% 4px;
+
+    animation: scanlines 0.2s linear infinite;
+}
+
+
+/* =========================
+   BACKGROUND TEXT
+   ========================= */
+
+.background-text {
+    position: absolute;
+
+    font-family:
+        "Press Start 2P",
+        monospace;
+
+    font-size: clamp(0.7rem, 1.2vw, 1.2rem);
+    font-weight: 400;
+
+    color: #ffffff;
+
+    pointer-events: none;
+
+    will-change: text-shadow;
+
+    animation: rgbText 2s steps(9) infinite alternate;
+
+    text-transform: uppercase;
+}
+
+.play {
+    left: 2rem;
+    top: 2rem;
+}
+
+.time {
+    right: 2rem;
+    top: 2rem;
+
+    animation-duration: 1s;
+}
+
+.record-speed {
+    left: 2rem;
+    bottom: 2rem;
+
+    animation-duration: 1s;
+}
+
+
+/* =========================
+   NOISE ANIMATION
+   ========================= */
+
+@keyframes noise {
+    0%,
+    100% {
+        background-position: 0 0;
+    }
+
+    10% {
+        background-position: -5% -10%;
+    }
+
+    20% {
+        background-position: -15% 5%;
+    }
+
+    30% {
+        background-position: 7% -25%;
+    }
+
+    40% {
+        background-position: 20% 25%;
+    }
+
+    50% {
+        background-position: -25% 10%;
+    }
+
+    60% {
+        background-position: 15% 5%;
+    }
+
+    70% {
+        background-position: 0 15%;
+    }
+
+    80% {
+        background-position: 25% 35%;
+    }
+
+    90% {
+        background-position: -10% 10%;
+    }
+}
+
+
+/* =========================
+   SCANLINES ANIMATION
+   ========================= */
+
+@keyframes scanlines-opacity {
+    0% {
+        opacity: 0.25;
+    }
+
+    20% {
+        opacity: 0.12;
+    }
+
+    35% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    60% {
+        opacity: 0.16;
+    }
+
+    80% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 0.25;
+    }
+}
+
+@keyframes scanlines {
+    from {
+        background:
+            linear-gradient(
+                to bottom,
+                transparent 50%,
+                rgba(0, 0, 0, 0.5) 51%
+            );
+
+        background-size: 100% 4px;
+    }
+
+    to {
+        background:
+            linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.5) 50%,
+                transparent 51%
+            );
+
+        background-size: 100% 4px;
+    }
+}
+
+
+/* =========================
+   RGB / GLITCH TEXT
+   ========================= */
+
+@keyframes rgbText {
+    0% {
+        text-shadow:
+            0 0 0 transparent,
+            0 0 0 transparent;
+    }
+
+    25% {
+        text-shadow:
+            -2px 0 0 rgba(255, 0, 0, 0.8),
+            2px 0 0 rgba(0, 255, 255, 0.8);
+    }
+
+    45% {
+        text-shadow:
+            2px 0 0 rgba(255, 0, 0, 0.8),
+            -2px 0 0 rgba(0, 255, 255, 0.8);
+    }
+
+    50% {
+        text-shadow:
+            -3px 0 0 rgba(255, 0, 0, 0.8),
+            3px 0 0 rgba(0, 255, 255, 0.8);
+    }
+
+    55% {
+        text-shadow:
+            2px 0 0 rgba(255, 0, 0, 0.8),
+            -2px 0 0 rgba(0, 255, 255, 0.8);
+    }
+
+    90% {
+        text-shadow:
+            1px 0 0 rgba(255, 0, 0, 0.8),
+            -1px 0 0 rgba(0, 255, 255, 0.8);
+    }
+
+    100% {
+        text-shadow:
+            0 0 0 transparent,
+            0 0 0 transparent;
+    }
+}
+
+
+/* =========================
+   REDUCED MOTION
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

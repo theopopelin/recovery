@@ -1,0 +1,133 @@
+/* =========================
+   SCOREBOARD
+   ========================= */
+
+.scoreboard {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    margin: 0;
+
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+
+    color: var(--text);
+}
+
+/* =========================
+   LOADING
+   ========================= */
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    min-height: 300px;
+
+    color: var(--muted);
+}
+
+.loading-state img {
+    width: clamp(64px, 12vw, 120px);
+    height: clamp(64px, 12vw, 120px);
+
+    object-fit: contain;
+}
+
+.loading-state p {
+    margin: 0;
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* =========================
+   STATES
+   ========================= */
+
+.state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 300px;
+
+    color: var(--muted);
+    text-align: center;
+}
+
+.state.error {
+    display: block;
+
+    padding: 32px;
+
+    border: 1px solid rgba(237, 66, 69, 0.25);
+    border-radius: 16px;
+
+    background: rgba(237, 66, 69, 0.05);
+
+    color: #ed4245;
+}
+
+.state.error small {
+    display: inline-block;
+    margin-top: 8px;
+
+    color: var(--muted);
+}
+
+/* =========================
+   TOP SECTION
+   ========================= */
+
+.top-section {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.9fr) minmax(400px, 1.1fr);
+    gap: 24px;
+
+    margin-bottom: 24px;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+    .scoreboard {
+        padding: 32px 20px 48px;
+    }
+
+    .top-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .scoreboard {
+        padding: 24px 16px 40px;
+    }
+
+    .header {
+        margin-bottom: 28px;
+    }
+
+    .top-section {
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+}

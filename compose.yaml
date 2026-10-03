@@ -11,6 +11,8 @@ services:
       DATABASE_URL: ${DATABASE_URL}
       APP_SECRET: ${APP_SECRET}
       DEFAULT_URI: ${DEFAULT_URI}
+      DISCORD_TOKEN_API: ${DISCORD_TOKEN_API}
+      
     depends_on:
       - postgres
 

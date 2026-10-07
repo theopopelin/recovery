@@ -15,6 +15,7 @@ Conspiracy
 Modifier Conspiracy avec les channels a surveiller dans un json, et une commande pour ajouter/retirer des chans dans la liste a surveiller
 /watch
 /unwatch
+Mettre le delay dans un fichier json et ajouter une commande pour le set
 
 Ajouter ticketing sur les bots
 

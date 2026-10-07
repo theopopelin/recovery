@@ -2,8 +2,14 @@
 Ajouter les apikeys pour voir le cd sinje
 Modifier le fonctionnement du cd pour que ce soit une variable manipulable et pas un vieux truc en dur
 
+Push + deploy le ticketing
+
 #TODO Python :
 Remettre le copsinje
 Modifier unshackle avec un cron bien propre
 
+Ajouter ticketing
+
 #TODO frontpage :
+
+Ajouter un onglet ticketing ou un composant en plus

@@ -2,13 +2,21 @@
 Ajouter les apikeys pour voir le cd sinje
 Modifier le fonctionnement du cd pour que ce soit une variable manipulable et pas un vieux truc en dur
 
-Push + deploy le ticketing
-
 #TODO Python :
-Remettre le copsinje
-Modifier unshackle avec un cron bien propre
 
-Ajouter ticketing
+K2000
+Remettre le copsinje
+
+Unshackle
+Modifier unshackle avec un cron bien propre
+Modifier unshackle avec les idchannels dans un json pour que le bot soit opensource et facile a installer
+
+Conspiracy
+Modifier Conspiracy avec les channels a surveiller dans un json, et une commande pour ajouter/retirer des chans dans la liste a surveiller
+/watch
+/unwatch
+
+Ajouter ticketing sur les bots
 
 #TODO frontpage :
 

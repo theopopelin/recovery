@@ -11,12 +11,15 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class TicketController
 {
-    #[Route('/ticket/create', name: 'ticket_create', methods: ['POST'])]
+    #[Route('/ticket/create', name: 'ticket_create', methods: ['POST', 'OPTIONS'])]
     public function createTicket(
         Request $request,
         TicketRepository $ticketRepository,
         EntityManagerInterface $entityManager
     ): JsonResponse {
+        if ($request->isMethod('OPTIONS')) {
+            return new JsonResponse(null, 204);
+        }
         $data = json_decode($request->getContent(), true);
 
         $name = $data['name'] ?? null;

@@ -1,13 +1,8 @@
 import discord
-from discord.ext import commands
 from discord import app_commands
-from typing import NoReturn
-from discord.utils import get
 from twikit import Client, Tweet
 import validators
 import os
-import time
-import random
 import asyncio
 import requests
 import json
@@ -33,7 +28,7 @@ async def main():
     
     latest_id = 50
     client = Client('en-US')
-    
+
     USER_ID = '517004655'
     COOKIES_PATH = "/var/www/cookies.json"
     CHANNELS_PATH = "/var/www/channels.json"

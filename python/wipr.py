@@ -8,6 +8,7 @@ import requests
 import json
 import urllib.parse
 from datetime import datetime, timedelta
+import aiocron
 
 TOKEN = os.environ["DISCORD_TOKEN3"]
 
@@ -18,20 +19,12 @@ tree = app_commands.CommandTree(bot)
 
 async def main():
 
-    now = datetime.now()
-    next_run = now.replace(hour=2, minute=1, second=0, microsecond=0)
-
-    if next_run <= now:
-        next_run += timedelta(days=1)
-
-    check_interval = int((next_run - now).total_seconds())
-    
-    latest_id = 50
     client = Client('en-US')
 
     USER_ID = '517004655'
     COOKIES_PATH = "/var/www/cookies.json"
     CHANNELS_PATH = "/var/www/channels.json"
+    MESSAGES_ID_PATH = "/var/www/messagesid.json"
 
     with open(CHANNELS_PATH, "r", encoding="utf-8") as f:
         jsonids = json.load(f)
@@ -41,34 +34,55 @@ async def main():
         client.load_cookies(COOKIES_PATH)
     else:
         await client.login(
-        auth_info_1=os.environ["AUTH_INFO_1"],
-        auth_info_2=os.environ["AUTH_INFO_2"],
-        password=os.environ["AUTH_INFO_3"])
+            auth_info_1=os.environ["AUTH_INFO_1"],
+            auth_info_2=os.environ["AUTH_INFO_2"],
+            password=os.environ["AUTH_INFO_3"]
+        )
         client.save_cookies(COOKIES_PATH)
 
-#todo automatiser avec un cron propre, pour le moment ca fait le job
-    while True:
+    @aiocron.crontab('0 2 * * *')
+    async def delete_tweet():
+
+        with open(MESSAGES_ID_PATH, "r", encoding="utf-8") as f:
+            messageids = json.load(f)
+
+        for item in messageids["messages"]:
+            channel = bot.get_channel(int(item["channel_id"]))
+
+            if channel is None:
+                channel = await bot.fetch_channel(int(item["channel_id"]))
+
+            message = await channel.fetch_message(int(item["message_id"]))
+            await message.delete()
+
+        with open(MESSAGES_ID_PATH, "w", encoding="utf-8") as f:
+            json.dump({"messages": []}, f, indent=4)
+
+    @aiocron.crontab('1 2 * * *')
+    async def post_tweet():
+
         tweets = await client.get_user_tweets(USER_ID, 'Tweets')
         latest_id = tweets[0].id
-        tweet_url = (f'https://fxtwitter.com/SkinSpotlights/status/{latest_id}')
+        tweet_url = f'https://fxtwitter.com/SkinSpotlights/status/{latest_id}'
 
         messages = []
 
         for channel_id in tweet_channel_ids:
-
             channel = bot.get_channel(int(channel_id))
 
             if channel is None:
                 channel = await bot.fetch_channel(int(channel_id))
+
             message = await channel.send(tweet_url)
-            messages.append(message)
 
-        await asyncio.sleep(check_interval)
-        check_interval = 24 * 60 * 60
+            messages.append({
+                "channel_id": int(channel_id),
+                "message_id": message.id
+            })
 
-        for message in messages:
-            await message.delete()
-
+        with open(MESSAGES_ID_PATH, "w", encoding="utf-8") as f:
+            json.dump({"messages": messages}, f, indent=4)
+            
 @bot.event
 async def on_ready():
     print('Break the chain')

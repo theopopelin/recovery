@@ -40,7 +40,7 @@ async def main():
         )
         client.save_cookies(COOKIES_PATH)
 
-    @aiocron.crontab('0 2 * * *')
+    @aiocron.crontab('0 0 * * *')
     async def delete_tweet():
 
         with open(MESSAGES_ID_PATH, "r", encoding="utf-8") as f:
@@ -58,7 +58,7 @@ async def main():
         with open(MESSAGES_ID_PATH, "w", encoding="utf-8") as f:
             json.dump({"messages": []}, f, indent=4)
 
-    @aiocron.crontab('1 2 * * *')
+    @aiocron.crontab('1 0 * * *')
     async def post_tweet():
 
         tweets = await client.get_user_tweets(USER_ID, 'Tweets')

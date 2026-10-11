@@ -25,34 +25,12 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot : return
     val2 = random.randint(1,10000)
-    val4 = random.randint(1,20000)
-    val5 = random.randint(1,5000)
+
     if val2 == 1 :
      embedmain = discord.Embed(title='ALERTE', description="Vous avez été visité par un rat magique sauvage. C'est une manifestation rare d'un esprit malin instable et très puissant.", colour =0x39ff14)
      embedmain.set_footer(text='Malédiction à celui qui ne lui répondra pas : \"Jtm poti rat\"')
      embedmain.set_image(url="https://media.discordapp.net/attachments/247380295228194817/895287871206985739/unknown.png?width=938&height=604")
      await message.channel.send(embed=embedmain)
-
-    # if val5 == 1 :
-    #  valchall = random.randint(1,3)
-    #  if valchall == 1:
-    #   embedchall = discord.Embed(title='ALERTE ANIMATION', description="Hé Salut vous ! c'est Louis de l'équipe d'animation du discord ! je sors du néant distordu pour égayer votre journée avec un MAXI CHALLENGE XXL !! Come vedi parlo italiano! fai uno screenshot dell'immagine qui sotto, traduci ed ESEGUI", colour =0xff7f00)
-    #   embedchall.set_footer(text='Et n\'oubliez pas que vous êtes des CHIENS MALAISANTS si vous trichez ou si vous ne voulez pas vous abaisser à faire ces trucs stupides ! allez on dévisse son cul de sa chaise et on bouge ! (les trucs longs à faire abrégez)')
-    #   embedchall.set_image(url="https://cdn.discordapp.com/attachments/574252797655252998/903115468963975248/6sHnSLuyVQAAAABJRU5ErkJggg.png")
-    #   await message.channel.send(embed=embedchall)
-    #   await message.channel.send("https://tenor.com/view/challenge-random-gif-16597878")
-    #  elif valchall == 2:
-    #   embedchall = discord.Embed(title='ALERTE ANIMATION', description="Salut les L9 PISSCRINGERS ! C'est Louis de l'équipe d'animation du discord ! C'est parti pour un MAXI CHALLENGE XXL ! L9 SMURFING ON PISSRANDOMS XDDD ?? Alors, vous vous sentez chauds ? ca clique vite et bien ? Vous pensez avoir l'APM de Sardoche ? Parfait pour ce challenge !")
-    #   embedchall.set_footer(text='ALLEZ ON SE BOUGE BORDEL HURRY UP YOU PISSCRINGER CASINO GRIEFER CANCERTARD SHITRANDOM')
-    #   embedchall.set_image(url="https://cdn.discordapp.com/attachments/574252797655252998/903118914341453844/20jYVsJdNyoJYDBebVcqDfmwP9X55VUtGJzuThAAAAAElFTkSuQmCC.png")
-    #   await message.channel.send(embed=embedchall)
-    #   await message.channel.send("https://cdn.discordapp.com/attachments/549515851418697741/903111283832926248/016eb08aed7d908f5b8fe0bf9ac2a9db.gif")
-    #  elif valchall == 3:
-    #   embedchall = discord.Embed(title='ALERTE ANIMATION', description="Salut les Bouffons avec un grand B ! C'est Louis de l'équipe d'animation du discord ! C'est l'heure du MAXI CHALLENGE XXL ! C'est l'heure de troller un peu, on va normaliser le fait de déranger la paix avec des petites farces ! La Malice :)")
-    #   embedchall.set_footer(text='Pas de triche :) si j\'étais toi je ne jouerais pas avec le feu surtout quand il y\'a de la MALICE dans l\'histoire :)')
-    #   embedchall.set_image(url="https://cdn.discordapp.com/attachments/574252797655252998/903123513316106240/o9G4FlzVP0OprnIwAAAABJRU5ErkJggg.png")
-    #   await message.channel.send(embed=embedchall)
-    #   await message.channel.send("https://cdn.discordapp.com/attachments/549515851418697741/903120414065172550/7iv4pkrienb71.gif")
 
     if 'https://tenor.com/view/cat-cat-jumping-cat-excited-excited-dance-gif-19354605' in message.content:
       await message.channel.send("https://tenor.com/view/cat-cat-jumping-cat-excited-excited-dance-gif-19354605")

@@ -3,9 +3,6 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from discord.utils import get
-from discord import FFmpegPCMAudio, PCMVolumeTransformer
-import datetime
-import time
 import random
 import asyncio
 import requests
@@ -85,7 +82,7 @@ async def combiensinje(interaction: discord.Interaction):
     nbsinje = geo[0]
     await interaction.response.send_message(str(nbsinje)+" sinjes")
 
-#todo remettre la commande pour cop, ajouter dans l'api le nom d'utilisateur discord dans les fields sinje, update le cd dans l'api directement au moment du cop
+#todo remettre la commande pour cop
 
 @tree.command(name="l9generator", description="L9GENERATOR 联盟戦亡選機稿 NEW RATEARL SCRIPT 100% UNDETECTED 400 TUMORS 24 SEC 癌症 [ROLEX LASER BOOST]")
 async def l9generator(interaction: discord.Interaction):
@@ -100,29 +97,6 @@ async def l9generator(interaction: discord.Interaction):
 #    guild = ctx.guild
 #    agentrole = guild.get_role(1030197512927203430)
 #    await ctx.send("ENABLE TROLLAGE PROTOCOL 癌症 AGENCY TECHNOLOGY [UNDETECTED] ^ GAME LOOP (script) LABORATORY PROCESSING 789 NEW TECHNOLOGIES PER GAME [EXPERIMENTING IN HAMSTERLOW] / MENTAL ASYLUM L9 PTSD SPREADER ? TERRORIZING THE IRONLOWS ON CD ... INSTALLING ONE SHOT PROTOCOL ._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._._. [GATHERING STORM INJECTION][10G/s]")
-#    await asyncio.sleep(2)
-#    message = await ctx.send("--------------------")
-#    await message.edit(content="#-------------------")
-#    await message.edit(content="##------------------")
-#    await message.edit(content="###-----------------")
-#    await message.edit(content="####----------------")
-#    await message.edit(content="#####---------------")
-#    await message.edit(content="######--------------")
-#    await message.edit(content="#######-------------")
-#    await message.edit(content="########------------")
-#    await message.edit(content="#########-----------")
-#    await message.edit(content="##########----------")
-#    await message.edit(content="###########---------")
-#    await message.edit(content="############--------")
-#    await message.edit(content="#############-------")
-#    await message.edit(content="##############------")
-#    await message.edit(content="###############-----")
-#    await message.edit(content="################----")
-#    await message.edit(content="#################---")
-#    await message.edit(content="##################--")
-#    await message.edit(content="###################-")
-#    await message.edit(content="####################")
-
 #    await asyncio.sleep(2)
 #    await ctx.channel.send(agentrole.mention+" WAKE UP")
 #    await ctx.channel.send("[ERROR_SYSTEM_SHUTTING_DOWN]")
@@ -152,42 +126,6 @@ async def l9generator(interaction: discord.Interaction):
 #                await channel.send("[ERROR_SYSTEM_SHUTTING_DOWN]")
 #    await gamerchannel.send("CRON TASK COMPLETE")
 
-#@slash.slash(name="disruption", description="XD")
-#async def disruption(ctx):
-#    guild = ctx.guild
-#    gamerchannel = guild.get_channel(696507936029278319)
-#    gamerrole = guild.get_role(1163864301149360138)
-#    request = requests.get(f"https://api.warframestat.us/pc/fissures/")
-#    geo = request.json()
-#    for mission in geo:
-#       type = mission["missionType"]
-#       print(type)
-#       if type == "Disruption":
-#            await ctx.channel.send("DISRUPTION_MISSION"+mission["id"])
-#            print(mission)
-#            #await ctx.channel.send(gamerrole.mention+" WAKE UP")
-#            #await ctx.channel.send("[ERROR_SYSTEM_SHUTTING_DOWN]")
-#    await ctx.send("############_")
-
-#@bot.command()
-#@commands.cooldown(1,random.randint(21600,64800),commands.BucketType.guild)
-#async def archimonstre(ctx):
-#     newuser = ctx.message.author
-#     guild = ctx.guild
-#     role = guild.get_role(864605123110764645)
-#
-#     for user in guild.members:
-#      if role in user.roles:
-#       await user.remove_roles(role)
-#       role = guild.get_role(864605123110764645)
-#       await newuser.add_roles(role)
-#
-#       embedmeta = discord.Embed(title='Apykulteur de Récolteur', description="Un archimonstre est présent dans le discord !")
-#       embedmeta.set_footer(text='Il réapparaîtra d\'ici 6 à 18 heures')
-#       embedmeta.set_image(url="https://cdn.discordapp.com/attachments/807408208301129769/864600457681567824/x9g6AicmNBzWAAAAABJRU5ErkJggg.png")
-#       await ctx.send(embed=embedmeta)
-#       await ctx.send('GG à '+ctx.message.author.mention+' qui récupère la flamme (Précédemment détenue par '+user.mention+') <:chart_with_upwards_trend:864866720086097950><a:azf:863997449378725898>')
-#       break
 
 @tree.command(name="cinqcentun", description="REGULAAAAAAAAARRRREUH REGULLARRRRRR")
 async def cinqcentun(interaction: discord.Interaction):

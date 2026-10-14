@@ -8,8 +8,6 @@ K2000
 Remettre le copsinje
 
 Unshackle
-Modifier unshackle avec un cron bien propre
-Modifier unshackle avec les idchannels dans un json pour que le bot soit opensource et facile a installer
 
 Conspiracy
 Modifier Conspiracy avec les channels a surveiller dans un json, et une commande pour ajouter/retirer des chans dans la liste a surveiller

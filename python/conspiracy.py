@@ -8,6 +8,14 @@ import requests
 import urllib.parse
 import os
 
+import json
+from pathlib import Path
+
+CHANNELS_PATH = "/var/www/watch.json"
+
+with open(CHANNELS_PATH, "r", encoding="utf-8") as f:
+    MONITORED_CHANNELS = set(json.load(f)["monitored_channels"])
+
 TOKEN = os.environ["DISCORD_TOKEN2"]
 
 intents = discord.Intents.all()
@@ -24,7 +32,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if (message.channel.id == 1369960921383960616 or message.channel.id == 1136803727509041182): 
+    if message.channel.id in MONITORED_CHANNELS:
         if message.attachments:
             await message.add_reaction('<GOVERNMENTAPPROVED:1370304353700675624>')
         else:

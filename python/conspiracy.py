@@ -11,10 +11,11 @@ import os
 import json
 from pathlib import Path
 
-CHANNELS_PATH = "/var/www/watch.json"
+with open("/var/www/watch.json", "r", encoding="utf-8") as f:
+    CONFIG = json.load(f)
 
-with open(CHANNELS_PATH, "r", encoding="utf-8") as f:
-    MONITORED_CHANNELS = set(json.load(f)["monitored_channels"])
+MONITORED_CHANNELS = set(CONFIG["monitored_channels"])
+DELETE_DELAY = CONFIG["delete_delay"]
 
 TOKEN = os.environ["DISCORD_TOKEN2"]
 
@@ -36,7 +37,7 @@ async def on_message(message):
         if message.attachments:
             await message.add_reaction('<GOVERNMENTAPPROVED:1370304353700675624>')
         else:
-            await asyncio.sleep(21600)
+            await asyncio.sleep(DELETE_DELAY)
             await message.delete()
     
 #@slash.slash(name="irradiate", description="IRRADIATE")

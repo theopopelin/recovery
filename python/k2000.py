@@ -69,12 +69,17 @@ async def copsinje(interaction: discord.Interaction):
     result = r.json()[0]
 
     if result == "sinje acquired":
-        await interaction.response.send_message(
-            f"GG à {user.mention} qui récupère un sinje !"
+        embed = discord.Embed(
+            title="ALERTE SINJE",
+            description=f"{user.mention} vient de récupérer un sinje !",
+            colour=0x39ff14
         )
+        embed.set_footer(text="Le prochain sinje apparaîtra dans 6 à 18 heures.")
+
+        await interaction.response.send_message(embed=embed)
     else:
         await interaction.response.send_message(
-            "Aucune trace d'un sinje pour le moment."
+            "Aucun sinje en vue pour le moment."
         )
 
 @tree.command(name="l9generator", description="L9GENERATOR 联盟戦亡選機稿 NEW RATEARL SCRIPT 100% UNDETECTED 400 TUMORS 24 SEC 癌症 [ROLEX LASER BOOST]")

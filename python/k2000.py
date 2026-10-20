@@ -54,17 +54,33 @@ async def ping(interaction: discord.Interaction):
 @tree.command(name="combiensinje", description="Remonte le nombre de sinjes récupérés au total")
 async def combiensinje(interaction: discord.Interaction):
     user = interaction.user
-    r = requests.get(f"http://"+os.environ["API_URL"]+"/recovery/sinje/combien/"+str(user.id))
+    r = requests.get(f"https://"+os.environ["API_URL"]+"/recovery/sinje/combien/"+str(user.id))
     geo = r.json()
     nbsinje = geo[0]
     await interaction.response.send_message(str(nbsinje)+" sinjes")
 
-#todo remettre la commande pour cop
+@tree.command(name="copsinje", description="Tente de récupérer un sinje")
+async def copsinje(interaction: discord.Interaction):
+    user = interaction.user
+
+    r = requests.get(
+        f"https://{os.environ['API_URL']}/recovery/sinje/cop/{user.id}"
+    )
+    result = r.json()[0]
+
+    if result == "sinje acquired":
+        await interaction.response.send_message(
+            f"GG à {user.mention} qui récupère un sinje !"
+        )
+    else:
+        await interaction.response.send_message(
+            "Aucune trace d'un sinje pour le moment."
+        )
 
 @tree.command(name="l9generator", description="L9GENERATOR 联盟戦亡選機稿 NEW RATEARL SCRIPT 100% UNDETECTED 400 TUMORS 24 SEC 癌症 [ROLEX LASER BOOST]")
 async def l9generator(interaction: discord.Interaction):
     #spacegliding in cthululow
-    r = requests.get(f"http://"+os.environ["API_URL"]+"/recovery/l9/random/")
+    r = requests.get(f"https://"+os.environ["API_URL"]+"/recovery/l9/random/")
     l9json = r.json()
     sentence = l9json['prefix']+l9json['verb']+" in "+l9json['low']+"low"
     await interaction.response.send_message(sentence)

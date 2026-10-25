@@ -56,8 +56,34 @@ class SinjeController extends AbstractController
         EntityManagerInterface $entityManager,
         SinjeRepository $sinjeRepository,
         SinjeCooldownRepository $sinjeCooldownRepository,
-        Request $request
+        Request $request,
+        HttpClientInterface $httpClient
     ): JsonResponse {
+        // check discord id
+        $response = $httpClient->request(
+            'GET',
+            'https://discord.com/api/v10/users/' . $id_user,
+            [
+                'headers' => [
+                    'Authorization' => 'Bot ' . $_ENV['DISCORD_TOKEN_API'],
+                ],
+            ]
+        );
+
+        $statusCode = $response->getStatusCode();
+
+        if ($statusCode === 404) {
+            return $this->json([
+                'error' => 'Invalid Discord user ID'
+            ], 400);
+        }
+
+        if ($statusCode !== 200) {
+            return $this->json([
+                'error' => 'Unable to verify Discord user'
+            ], 502);
+        }
+
         // check cooldown to see if it's up
         $cooldown = $sinjeCooldownRepository->findAll()[0];
         if ($cooldown->getCooldown() < time()) {
@@ -100,6 +126,7 @@ class SinjeController extends AbstractController
             ]);
         }
     }
+
     #[Route('/sinje/combien', name: 'app_sinje_combien_no_user', methods: ['GET'])]
     #[Route('/sinje/combien/{id_user}', name: 'app_sinje_combien', methods: ['GET'])]
     public function combiensinje(
@@ -124,7 +151,7 @@ class SinjeController extends AbstractController
         ]);
     }
 
-    // todo : scoreboard route 
+    // todo : scoreboard route
     #[Route('/sinje/scoreboard', name: 'app_sinje_scoreboard', methods: ['GET'])]
     public function scoreboard(
         SinjeRepository $sinjeRepository,

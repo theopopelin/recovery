@@ -59,34 +59,36 @@ class SinjeController extends AbstractController
         Request $request,
         HttpClientInterface $httpClient
     ): JsonResponse {
-        // check discord id
-        $response = $httpClient->request(
-            'GET',
-            'https://discord.com/api/v10/users/' . $id_user,
-            [
-                'headers' => [
-                    'Authorization' => 'Bot ' . $_ENV['DISCORD_TOKEN_API'],
-                ],
-            ]
-        );
-
-        $statusCode = $response->getStatusCode();
-
-        if ($statusCode === 404) {
-            return $this->json([
-                'error' => 'Invalid Discord user ID'
-            ], 400);
-        }
-
-        if ($statusCode !== 200) {
-            return $this->json([
-                'error' => 'Unable to verify Discord user'
-            ], 502);
-        }
 
         // check cooldown to see if it's up
         $cooldown = $sinjeCooldownRepository->findAll()[0];
+
         if ($cooldown->getCooldown() < time()) {
+
+            // vérifier que l'ID correspond à un compte Discord
+            $response = $httpClient->request(
+                'GET',
+                'https://discord.com/api/v10/users/' . $id_user,
+                [
+                    'headers' => [
+                        'Authorization' => 'Bot ' . $_ENV['DISCORD_TOKEN_API'],
+                    ],
+                ]
+            );
+
+            $statusCode = $response->getStatusCode();
+
+            if ($statusCode === 404) {
+                return $this->json([
+                    'error' => 'Invalid Discord user ID'
+                ], 400);
+            }
+
+            if ($statusCode !== 200) {
+                return $this->json([
+                    'error' => 'Unable to verify Discord user'
+                ], 502);
+            }
 
             $newcd = time() + rand(6 * 3600, 18 * 3600);
             $newuser = $id_user;

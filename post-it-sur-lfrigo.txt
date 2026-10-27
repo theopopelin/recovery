@@ -4,13 +4,6 @@ Modifier le fonctionnement du cd pour que ce soit une variable manipulable et pa
 
 #TODO Python :
 
-K2000
-Remettre le copsinje
-
-Unshackle
-
-Conspiracy
-
 Ajouter ticketing sur les bots
 Nettoyer les imports qui servent plus
 

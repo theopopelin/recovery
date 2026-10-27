@@ -1,1 +1,56 @@
 .env
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.dev
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+# ==========================================
+# Environment variables and secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+!.env.*.example
+secrets.env
+
+# ==========================================
+# PHP / Composer / Symfony
+# ==========================================
+/conspiracy/vendor/
+/conspiracy/var/
+/conspiracy/.phpunit.cache/
+
+# ==========================================
+# Node.js / Vue / Vite
+# ==========================================
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.vite/
+
+# ==========================================
+# Python
+# ==========================================
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.python-version
+
+# ==========================================
+# IDE and operating system
+# ==========================================
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Logs
+# ==========================================
+*.log

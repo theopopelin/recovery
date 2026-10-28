@@ -12,6 +12,7 @@ services:
       APP_SECRET: ${APP_SECRET}
       DEFAULT_URI: ${DEFAULT_URI}
       DISCORD_TOKEN_API: ${DISCORD_TOKEN_API}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
     depends_on:
       - postgres
 

@@ -18,11 +18,14 @@ services:
       - postgres
 
   web:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-/recovery}
+    image: recovery-web:latest
     volumes:
       - ./conspiracy:/app:ro
-      - ./frontend:/frontend:ro
-      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - php
     ports:

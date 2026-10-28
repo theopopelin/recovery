@@ -1,5 +1,4 @@
 services:
-
   php:
     build:
       context: .
@@ -8,6 +7,8 @@ services:
     volumes:
       - ./conspiracy:/app
     environment:
+      APP_ENV: ${APP_ENV:-dev}
+      APP_DEBUG: ${APP_DEBUG:-1}
       DATABASE_URL: ${DATABASE_URL}
       APP_SECRET: ${APP_SECRET}
       DEFAULT_URI: ${DEFAULT_URI}

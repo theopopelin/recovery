@@ -10,3 +10,5 @@ Nettoyer les imports qui servent plus
 #TODO frontpage :
 
 Ajouter un onglet ticketing ou un composant en plus
+
+Dockeriser les bots python, passer le tout sous kubernetes ou au moins séparer les conteneurs proprement
